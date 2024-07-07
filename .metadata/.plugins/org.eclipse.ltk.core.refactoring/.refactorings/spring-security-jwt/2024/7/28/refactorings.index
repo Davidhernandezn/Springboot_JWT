@@ -1,0 +1,6 @@
+1720377435507	Delete element
+1720377568113	Rename package 'com.cursos.api.spring_security_jwt.controller'
+1720377589747	Rename package 'com.cursos.api.spring_security_jwt.service'
+1720377606938	Rename package 'com.cursos.api.spring_security_jwt.persistence'
+1720378102523	Move 'entity' to 'persistence'
+1720378110099	Move 'repository' to 'persistence'
