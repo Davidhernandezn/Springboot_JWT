@@ -1,0 +1,32 @@
+package com.cursos.api.springsecuritycourse.persistence.entity;
+
+import java.math.BigDecimal;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Product {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String name;
+	
+	private BigDecimal price;
+	
+	@Enumerated(EnumType.STRING)
+	private ProductStatus status;
+	
+	//ESTO SE GUARDA EN BD, PERO LO NECESITAMOS EN STRING, ES DECIR SE GUARDARÁ LO QUE SIGNIFICA
+	//NUMERACION STATICA, ACCEDIDA DESDE LA CLASE PRINCIPAL DEL PRODUCTO
+	public static enum ProductStatus{
+		//ENUMERACIONES TIENEN UN VALOR ORDINAL 0,1
+		ENABLED, DISABLED;
+	}
+
+}

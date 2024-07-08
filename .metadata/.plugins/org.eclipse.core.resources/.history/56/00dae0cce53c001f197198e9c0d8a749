@@ -1,0 +1,7 @@
+package com.cursos.api.springsecuritycourse.service;
+
+public interface ProductService {
+
+	//DEVUELVE  UNA PAGUINACION DE PRODUCTOS Y RECIBE LOS PARAMETROS PARA CONFIGURAR LA PAGUINACION
+	Page<Product> findAll(Pageable pageable);//FRIMA DE INTERFAZ NUMERO Y TAMAÑO
+}

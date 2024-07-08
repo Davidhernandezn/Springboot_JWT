@@ -1,0 +1,61 @@
+package com.cursos.api.springsecuritycourse.controller;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cursos.api.springsecuritycourse.persistence.entity.Product;
+import com.cursos.api.springsecuritycourse.service.ProductService;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+	@Autowired
+	private ProductService productService;
+	//FIND ALL ESTARÁ PAGINADO
+	//FIRMA DEL METODO CON PUBLIC
+	/**
+	 * Product (es un objeto)
+	 * recibe plegable
+	 * tamaño
+	 * */
+	@GetMapping
+	public ResponseEntity<Page<Product>> findAll(Pageable pageable){
+		//VERIFICAR QUE EXISTA EL METODO FIND ALL EN PRODUCT SERVICE
+		Page<Product> productsPage = productService.findAll(pageable);
+		
+		//RESPUESTA SI SE ENCUENTRA
+		if(productsPage.hasContent()) {
+			return ResponseEntity.ok(productsPage);
+		}
+		
+		/*PODEMOS DAR UNA RESPUESTA SI NO SE ENCUENTRA*/
+		//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/{productId}")
+	public ResponseEntity<Product> findOneById(@PathVariable Long productId){
+		//VERIFICAR QUE EXISTA EL METODO FIND ALL EN PRODUCT SERVICE
+		//YA NO NECESITAMOS PAGE SI NO OPTIONAL AL SOLO BUSCAR UNO
+		Optional<Product> product = productService.findOneById(productId);
+		
+		//RESPUESTA SI SE ENCUENTRA
+		if(product.isPresent()) {
+			//SACAMOS EL VALOR QUE CONTIENE
+			return ResponseEntity.ok(product.get());
+		}
+		
+		/*PODEMOS DAR UNA RESPUESTA SI NO SE ENCUENTRA*/
+		//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.notFound().build();
+	}
+
+}
