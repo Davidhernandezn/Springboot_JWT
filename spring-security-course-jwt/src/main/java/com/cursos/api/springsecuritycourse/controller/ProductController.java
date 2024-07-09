@@ -5,14 +5,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cursos.api.springsecuritycourse.dto.SaveProduct;
 import com.cursos.api.springsecuritycourse.persistence.entity.Product;
 import com.cursos.api.springsecuritycourse.service.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/products")
@@ -58,4 +65,41 @@ public class ProductController {
 		return ResponseEntity.notFound().build();
 	}
 
+
+	@PostMapping //ESTE METODO HTTP, NO NECESITA PATH
+	//RECIBIRA UN OBJETO JSON QUE SE MAPEARA A UN POJO O DTO (SaveProduct)
+	//AGREGAMOSUN @RequestBody YA QUE VENDRA EN EL BODY DE LA PETICION
+	//@Valid PARA VALIDAR PARAMETROS
+	public ResponseEntity<Product> createOne(@RequestBody @Valid SaveProduct saveProduct){
+		//crear el metodo dentro de product service
+		Product product = productService.createOne(saveProduct);//mandamos dto saveProduct
+		//JPA SI FALLA LANZA EXCEPTION
+		return ResponseEntity.status(HttpStatus.CREATED).body(product);//PRODUCTO CREADO
+	}
+		
+	@PutMapping("/{productId}")//ESTE METODO HTTP, NECESITA PATH
+	//AGREGAMOSUN @RequestBody YA QUE VENDRA EN EL BODY DE LA PETICION
+	//@PathVariable para identificarlo
+	//@Valid PARA VALIDAR PARAMETROS
+	public ResponseEntity<Product> updateOneById(@PathVariable Long productId,
+												 @RequestBody @Valid SaveProduct saveProduct){
+		//crear el metodo dentro de product service
+		Product product = productService.updateOneById(productId, saveProduct);//mandamos dto saveProduct
+		//JPA SI FALLA LANZA EXCEPTION
+		//return ResponseEntity.status(HttpStatus.Ok).body(product);//PRODUCTO CREADO
+		return ResponseEntity.ok(product);
+	}
+	
+	
+	//DISABLE
+	@PutMapping("/{productId}/disabled")//ESTE METODO HTTP, NECESITA PATH //controlador de tipo restfull (funcion ejecutable que recibe parametros y devuelve info)
+	//@PathVariable para identificarlo
+	//@Valid PARA VALIDAR PARAMETROS
+	public ResponseEntity<Product> disableOneById(@PathVariable Long productId){
+		//crear el metodo dentro de product service
+		Product product = productService.disableOneById(productId);//mandamos dto saveProduct
+		//JPA SI FALLA LANZA EXCEPTION
+		//return ResponseEntity.status(HttpStatus.Ok).body(product);//PRODUCTO CREADO
+		return ResponseEntity.ok(product);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.cursos.api.springsecuritycourse.dto.SaveProduct;
 import com.cursos.api.springsecuritycourse.persistence.entity.Product;
 
 public interface ProductService {
@@ -14,4 +15,12 @@ public interface ProductService {
 	
 	//DEVUELBE OPTIONAL PARAMETRO ID
 	Optional<Product>findOneById(Long productId);
+	
+	//DEVUELVE UN PRODUCT Y RECIBE UN DTO
+		Product createOne (SaveProduct saveProduct);
+		
+		Product updateOneById(Long productId, SaveProduct saveProduct);
+		
+		Product disableOneById (Long productId);
+
 }
