@@ -3,11 +3,19 @@ package com.cursos.api.springsecuritycourse.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class SaveProduct implements Serializable{	
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+public class SaveProduct implements Serializable{
+	
+	@NotBlank //EN CONTROLADOR VALIDA QUE NO ESTE VACIO
 	private String name;
 	
+	@DecimalMin(value="0.01")//ACEPTA EL VALOR MINIMO
 	private BigDecimal price;
 	
+	@Min(value = 1)//MAYOR O IGUAL A 1
 	private Long categoryId;
 
 	public String getName() {

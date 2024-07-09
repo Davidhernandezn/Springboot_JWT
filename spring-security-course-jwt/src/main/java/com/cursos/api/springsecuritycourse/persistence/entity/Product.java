@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -28,6 +30,13 @@ public class Product {
 		//ENUMERACIONES TIENEN UN VALOR ORDINAL 0,1
 		ENABLED, DISABLED;
 	}
+	
+	//RELACION CON CATEGORY, agregar geter ans setter
+	//SE CREA UN ATRIBUTO CATEGORY ID, CON LLAVE FORANEA CON CATEGORIA
+	@ManyToOne //MUCHOS PRODUCTOS ESTARAN ASOCIADOS A UNA CATEGORIA
+	@JoinColumn(name="category_id")//JPA- COMO DEBE CREAR EL CAMPO CAGTEGORY EN TABLA PRODUCTO
+	private Category category;
+	
 
 	public Long getId() {
 		return id;
@@ -59,6 +68,15 @@ public class Product {
 
 	public void setStatus(ProductStatus status) {
 		this.status = status;
+	}
+
+	//RELACION CON CATEGORIA
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	

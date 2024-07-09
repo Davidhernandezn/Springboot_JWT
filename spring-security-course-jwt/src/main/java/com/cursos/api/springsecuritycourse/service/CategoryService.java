@@ -1,0 +1,25 @@
+package com.cursos.api.springsecuritycourse.service;
+
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.cursos.api.springsecuritycourse.dto.SaveCategory;
+import com.cursos.api.springsecuritycourse.dto.SaveProduct;
+import com.cursos.api.springsecuritycourse.persistence.entity.Category;
+import com.cursos.api.springsecuritycourse.persistence.entity.Product;
+
+public interface CategoryService {
+	Page<Category> findAll(Pageable pageable);//FIRMA DE INTERFAZ NUMERO Y TAMAÑO
+	
+	Optional<Category>findOneById(Long productId);
+
+	Category createOne (SaveCategory saveCategory);
+	
+	Category updateOneById(Long categoryId, SaveCategory saveCategory);
+	
+	Category disableOneById (Long categoryId);
+
+
+}
