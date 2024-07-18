@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public enum Category {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Category {
+	
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
@@ -18,8 +20,32 @@ public enum Category {
 	private categoryStatus status;
 	
 	//numeracion estatica
-	public static enum CategoryStatus{
+	public static enum categoryStatus{
 		ENABLED, DISABLED //LLAVES
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public categoryStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(categoryStatus status) {
+		this.status = status;
 	}
 	
 	
