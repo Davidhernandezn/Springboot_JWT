@@ -17,11 +17,12 @@ public class ApiError implements Serializable{
 	public void setBackendMessage(String backendMessage) {
 		this.backendMessage = backendMessage;
 	}
+
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
-		message = message;
+		this.message = message;
 	}
 	public LocalDateTime getTimestamp() {
 		return timestamp;
